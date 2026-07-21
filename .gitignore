@@ -1,0 +1,16 @@
+.venv/
+*.egg-info/
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.ruff_cache/
+.env
+.env.*
+.DS_Store
+node_modules/
+frontend/dist/
+artifacts/*
+!artifacts/deployment/
+artifacts/deployment/*
+!artifacts/deployment/holdem-ppo.pt
+!artifacts/deployment/holdem-ppo.json
