@@ -108,3 +108,13 @@ class PPOAgent(RandomAgent):
 
     def probabilities(self, observation):
         return network_probs(self.model, observation, self.device)
+
+
+
+def load_agent(path: str, device="cpu"):
+    from .checkpoint import load_checkpoint
+
+    payload = load_checkpoint(path)
+    if payload["algorithm"] != "ppo":
+        raise ValueError(f"Unsupported policy: {payload['algorithm']}")
+    return PPOAgent(payload["model_state"], device=device)

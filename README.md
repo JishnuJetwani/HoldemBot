@@ -32,3 +32,14 @@ trainer = PPOTrainer(seed=0)
 trainer.run(time.monotonic() + 60)
 print(trainer.counters)
 ```
+
+## Checkpoints
+
+```sh
+python -m poker_lab.train --seconds 60 --seed 0 --output artifacts/runs/ppo.pt
+python -m poker_lab.train --seconds 60 --output artifacts/runs/ppo.pt --resume artifacts/runs/ppo.pt
+python -m poker_lab.export artifacts/runs/ppo.pt artifacts/deployment/policy.pt
+```
+
+Checkpoints save the optimizer, opponent pool, current hand, and random state
+so training can resume. Exports keep the weights and game settings for play.
