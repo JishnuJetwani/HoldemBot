@@ -43,3 +43,13 @@ python -m poker_lab.export artifacts/runs/ppo.pt artifacts/deployment/policy.pt
 
 Checkpoints save the optimizer, opponent pool, current hand, and random state
 so training can resume. Exports keep the weights and game settings for play.
+
+## Evaluation
+
+```sh
+python scripts/evaluate.py --checkpoint artifacts/deployment/policy.pt \
+  --opponent path/to/opponent.pt --pairs 1000 --seed 42 --output artifacts/evaluation.json
+```
+
+Each deal is played from both seats. Reports include returns for each pair,
+bb/100, 95% confidence intervals, and the hashes of both models.
