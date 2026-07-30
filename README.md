@@ -53,3 +53,9 @@ python scripts/evaluate.py --checkpoint artifacts/deployment/policy.pt \
 
 Each deal is played from both seats. Reports include returns for each pair,
 bb/100, 95% confidence intervals, and the hashes of both models.
+
+## Slumbot
+
+For Slumbot, see `python -m poker_lab.slumbot_benchmark --help`. The client
+reads the cards and betting history from the API and uses the server's payouts.
+If an action's outcome is unclear, the match stops.
