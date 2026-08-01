@@ -59,3 +59,9 @@ bb/100, 95% confidence intervals, and the hashes of both models.
 For Slumbot, see `python -m poker_lab.slumbot_benchmark --help`. The client
 reads the cards and betting history from the API and uses the server's payouts.
 If an action's outcome is unclear, the match stops.
+
+## Card representation
+
+Hand features describe ranks, draws, blockers, and the board using visible
+cards. The hybrid network combines them with card embeddings and betting
+history. Card positions distinguish hole cards, flop, turn, and river.

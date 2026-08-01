@@ -35,7 +35,7 @@ def export_checkpoint(input_path, output_path):
     if payload.get("artifact_kind", "training") != "training":
         raise ValueError("Export requires a full training checkpoint, not a deployment artifact")
     algorithm = payload["algorithm"]
-    if algorithm not in {"ppo"}:
+    if algorithm not in {"ppo", "ppo_semantic", "ppo_hybrid"}:
         raise ValueError(f"Cannot export unsupported algorithm: {algorithm}")
     with source.open("rb") as stream:
         digest = hashlib.file_digest(stream, "sha256").hexdigest()
