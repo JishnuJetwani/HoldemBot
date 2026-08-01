@@ -113,8 +113,15 @@ class PPOAgent(RandomAgent):
 
 def load_agent(path: str, device="cpu"):
     from .checkpoint import load_checkpoint
+    from .hybrid_policy import HybridPPOAgent
+    from .semantic_policy import SemanticPPOAgent
 
     payload = load_checkpoint(path)
-    if payload["algorithm"] != "ppo":
-        raise ValueError(f"Unsupported policy: {payload['algorithm']}")
-    return PPOAgent(payload["model_state"], device=device)
+    algorithm = payload["algorithm"]
+    if algorithm == "ppo":
+        return PPOAgent(payload["model_state"], device=device)
+    classes = {"ppo_hybrid": HybridPPOAgent, "ppo_semantic": SemanticPPOAgent}
+    if algorithm not in classes:
+        raise ValueError(f"Unsupported policy: {algorithm}")
+    return classes[algorithm](payload["model_state"], device=device,
+                              architecture=payload["architecture"])
