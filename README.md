@@ -65,3 +65,9 @@ If an action's outcome is unclear, the match stops.
 Hand features describe ranks, draws, blockers, and the board using visible
 cards. The hybrid network combines them with card embeddings and betting
 history. Card positions distinguish hole cards, flop, turn, and river.
+
+## Parallel learning
+
+Training runs several games in parallel and batches their policy calls.
+Workers finish active hands before an update; opponents change between batches.
+Checkpoints save worker random states and opponent pools.
