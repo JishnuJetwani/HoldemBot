@@ -9,26 +9,13 @@ import sys
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 
 
-def sha(path):
-    import hashlib
-    with Path(path).open('rb') as stream:
-        return hashlib.file_digest(stream, 'sha256').hexdigest()
-
-
-def write(path, value):
-    path = Path(path)
-    path.parent.mkdir(parents=True, exist_ok=True)
-    temporary = path.with_name(path.name + '.tmp')
-    temporary.write_text(json.dumps(value, indent=2, allow_nan=False) + '\n')
-    temporary.replace(path)
-
-
 def main():
     import torch
     from poker_lab.agents import load_agent
     from poker_lab.checkpoint import load_checkpoint
     from poker_lab.evaluation import evaluate_matchup
     from poker_lab.game import GameSpec
+    from poker_lab.parallel_campaign import sha, write
 
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--checkpoint', required=True)

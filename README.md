@@ -1,8 +1,8 @@
 # HoldemBot
 
-Heads-up no-limit Hold'em with 200bb stacks, 50/100 blinds, and no rake.
-OpenSpiel handles the rules. The action menu offers fold, check/call, half-pot,
-pot, and all-in. The engine also accepts other legal raise amounts.
+A PPO bot for heads-up no-limit Hold'em with 200bb stacks, 50/100 blinds, and
+no rake. The network combines hand features, card embeddings, and a GRU
+over betting history.
 
 Requires Python 3.11+ on macOS or Linux.
 
@@ -10,64 +10,27 @@ Requires Python 3.11+ on macOS or Linux.
 python3 -m venv .venv
 source .venv/bin/activate
 pip install -e '.[dev]'
+python -m poker_lab.train --output-dir artifacts/runs/selfplay \
+  --config configs/ppo.json --seconds 3600 --workers 4 --envs-per-worker 16
+python -m poker_lab.train --output-dir artifacts/runs/selfplay --resume --seconds 3600
+```
+
+Training runs several games in parallel against recent and older copies of the
+bot. Opponents update between batches. Add fixed opponents with `--opponent`,
+or use `--warm-start` to start a new run from saved weights.
+
+Each update saves the optimizer, game workers, opponent pool, and random state.
+Two alternating checkpoint files allow recovery if a write is interrupted.
+
+## Evaluate
+
+```sh
+python scripts/evaluate.py --checkpoint path/to/policy.pt \
+  --opponent path/to/opponent.pt --pairs 10000 --seed 42 --output artifacts/evaluation.json
+python -m poker_lab.slumbot_benchmark --help
 pytest -q
 ```
 
-Tests compare payouts, betting order, and raises with PokerKit. Observations
-contain the player's cards and public information.
-
-## Self-play
-
-The PPO network combines card embeddings with a GRU over betting history.
-It trains from both seats against fixed copies of recent and older models.
-The reward is profit at the end of each hand; GAE credits earlier decisions.
-
-```python
-import time
-import torch
-from poker_lab.ppo import PPOTrainer
-
-torch.set_num_threads(1)
-trainer = PPOTrainer(seed=0)
-trainer.run(time.monotonic() + 60)
-print(trainer.counters)
-```
-
-## Checkpoints
-
-```sh
-python -m poker_lab.train --seconds 60 --seed 0 --output artifacts/runs/ppo.pt
-python -m poker_lab.train --seconds 60 --output artifacts/runs/ppo.pt --resume artifacts/runs/ppo.pt
-python -m poker_lab.export artifacts/runs/ppo.pt artifacts/deployment/policy.pt
-```
-
-Checkpoints save the optimizer, opponent pool, current hand, and random state
-so training can resume. Exports keep the weights and game settings for play.
-
-## Evaluation
-
-```sh
-python scripts/evaluate.py --checkpoint artifacts/deployment/policy.pt \
-  --opponent path/to/opponent.pt --pairs 1000 --seed 42 --output artifacts/evaluation.json
-```
-
-Each deal is played from both seats. Reports include returns for each pair,
-bb/100, 95% confidence intervals, and the hashes of both models.
-
-## Slumbot
-
-For Slumbot, see `python -m poker_lab.slumbot_benchmark --help`. The client
-reads the cards and betting history from the API and uses the server's payouts.
-If an action's outcome is unclear, the match stops.
-
-## Card representation
-
-Hand features describe ranks, draws, blockers, and the board using visible
-cards. The hybrid network combines them with card embeddings and betting
-history. Card positions distinguish hole cards, flop, turn, and river.
-
-## Parallel learning
-
-Training runs several games in parallel and batches their policy calls.
-Workers finish active hands before an update; opponents change between batches.
-Checkpoints save worker random states and opponent pools.
+Each deal is played from both seats. Results include returns for each pair,
+bb/100, and a 95% confidence interval. Tests compare rules with PokerKit and
+check card visibility, suit symmetry, legal actions, and training recovery.
