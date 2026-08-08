@@ -39,7 +39,7 @@ def write(path, value):
 
 def sources():
     """Hash the source files used by a run."""
-    names = ('train.py', 'parallel_campaign.py', 'league_training.py',
+    names = ('train.py', 'parallel_campaign.py', 'league_campaign.py', 'league_training.py',
              'batched_ppo.py', 'parallel_rollout.py', 'ppo.py', 'game.py', 'networks.py',
              'hybrid_policy.py', 'semantic_policy.py', 'agents.py', 'checkpoint.py', 'export.py')
     return {name: sha(Path(__file__).with_name(name)) for name in names}

@@ -34,3 +34,15 @@ pytest -q
 Each deal is played from both seats. Results include returns for each pair,
 bb/100, and a 95% confidence interval. Tests compare rules with PokerKit and
 check card visibility, suit symmetry, legal actions, and training recovery.
+
+## Adversarial training
+
+```sh
+python -m poker_lab.league_campaign --output-dir artifacts/runs/league \
+  --initialization path/to/policy.pt --config configs/league.json
+```
+
+Each round trains a new attacker against the bot, then trains the bot against
+self-play opponents and saved attackers. Newer attackers get more weight, but
+all remain in the pool. The bot keeps its optimizer and history between phases.
+Resume keeps the original phase deadlines.
