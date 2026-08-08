@@ -1,0 +1,22 @@
+{
+  "ppo": {
+    "rollout_steps": 8192,
+    "batch_size": 256,
+    "epochs": 4,
+    "learning_rate": 0.0001,
+    "gamma": 1.0,
+    "gae_lambda": 0.95,
+    "clip_epsilon": 0.2,
+    "entropy_coefficient": 0.01,
+    "value_coefficient": 0.5,
+    "gradient_clip": 0.5,
+    "reward_scale": 0.005,
+    "target_kl": 0.01
+  },
+  "self_play": {
+    "latest_weight": 0.5,
+    "history_weight": 0.2,
+    "archive_interval": 10,
+    "history_capacity": 32
+  }
+}
