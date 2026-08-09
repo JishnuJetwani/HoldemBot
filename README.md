@@ -46,3 +46,9 @@ Each round trains a new attacker against the bot, then trains the bot against
 self-play opponents and saved attackers. Newer attackers get more weight, but
 all remain in the pool. The bot keeps its optimizer and history between phases.
 Resume keeps the original phase deadlines.
+
+## Modal
+
+Install `pip install -e '.[cloud]'`, then run
+`modal run scripts/modal_train.py --help` for cloud options. Modal uses the
+same training code and saves runs in a volume. Warm starts upload saved weights.
