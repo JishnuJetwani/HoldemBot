@@ -7,10 +7,10 @@ name = "holdembot"
 version = "0.1.0"
 description = "A PPO agent for heads-up no-limit Texas Hold'em"
 requires-python = ">=3.11"
-dependencies = ["open_spiel==2.0.2", "pokerkit==0.7.6", "torch>=2.5,<3", "numpy>=2,<3", "scipy>=1.14"]
+dependencies = ["open_spiel==2.0.2", "pokerkit==0.7.6", "torch>=2.5,<3", "numpy>=2,<3", "scipy>=1.14", "fastapi>=0.115", "uvicorn>=0.30"]
 
 [project.optional-dependencies]
-dev = ["pytest>=8"]
+dev = ["pytest>=8", "httpx>=0.27"]
 cloud = ["modal==1.5.5"]
 
 [tool.setuptools.packages.find]

@@ -33,7 +33,7 @@ def restore_rng(state):
 
 
 def dependency_versions():
-    names = ('torch', 'numpy', 'open_spiel', 'pokerkit', 'scipy')
+    names = ("torch", "numpy", "open_spiel", "pokerkit", "scipy", "fastapi")
     return {"python": platform.python_version(), **{n: importlib.metadata.version(n) for n in names}}
 
 

@@ -52,3 +52,22 @@ Resume keeps the original phase deadlines.
 Install `pip install -e '.[cloud]'`, then run
 `modal run scripts/modal_train.py --help` for cloud options. Modal uses the
 same training code and saves runs in a volume. Warm starts upload saved weights.
+
+## Play
+
+Requires Node.js 20.19+ or 22.12+.
+
+```sh
+python -m uvicorn poker_lab.server:app --host 127.0.0.1 --port 8001
+# In another terminal:
+cd frontend
+npm ci
+npm run dev
+```
+
+Open http://localhost:5173 to play a saved model or a practice opponent.
+The app saves sessions, replays hands, and shows action probabilities.
+Stacks reset after each hand. Hidden cards and random state stay on the server.
+
+`npm --prefix frontend run build` builds the app. With both servers running,
+`npm --prefix frontend run test:browser` checks play and replay.
