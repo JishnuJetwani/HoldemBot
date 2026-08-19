@@ -1,0 +1,61 @@
+{
+  "algorithm": "ppo_hybrid",
+  "artifact_kind": "deployment",
+  "game_spec": {
+    "stack": 20000,
+    "small_blind": 50,
+    "big_blind": 100
+  },
+  "config": {
+    "rollout_steps": 8192,
+    "batch_size": 256,
+    "epochs": 4,
+    "learning_rate": 0.0001,
+    "gamma": 1.0,
+    "gae_lambda": 0.95,
+    "clip_epsilon": 0.2,
+    "entropy_coefficient": 0.01,
+    "value_coefficient": 0.5,
+    "gradient_clip": 0.5,
+    "reward_scale": 0.005,
+    "target_kl": 0.01
+  },
+  "counters": {
+    "iterations": 369,
+    "steps": 3066452,
+    "gradient_steps": 22990,
+    "kl_early_stops": 357,
+    "hands": 901961
+  },
+  "seed": 99330923,
+  "dependencies": {
+    "python": "3.11.12",
+    "torch": "2.14.0",
+    "numpy": "2.4.6",
+    "open_spiel": "2.0.2",
+    "pokerkit": "0.7.6",
+    "scipy": "1.17.1",
+    "fastapi": "0.141.1"
+  },
+  "format_version": 1,
+  "source_training_seconds": 5387.938569235,
+  "training_lineage": {
+    "initial_hands": 4231766,
+    "additional_hands": 901961,
+    "total_hands": 5133727,
+    "defender_rounds": 3,
+    "original_checkpoint_sha256": "9e696f13ade580b968fa6b69ede298884565adab3292b8e90eb5dc3d9297935f"
+  },
+  "id": "holdem-ppo",
+  "name": "Holdem PPO",
+  "path": "holdem-ppo.pt",
+  "sha256": "ec4c709535e6df0aa6c3e5f475aa1c9fdcd0dba10c9c84985639b09b17d9ef99",
+  "size_bytes": 917237,
+  "action_abstraction": [
+    "fold",
+    "check/call",
+    "half-pot",
+    "pot",
+    "all-in"
+  ]
+}

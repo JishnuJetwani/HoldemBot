@@ -1,0 +1,129 @@
+{
+  "game": {
+    "stack_bb": 200,
+    "small_blind": 50,
+    "big_blind": 100,
+    "rake": 0
+  },
+  "training_seeds": 1,
+  "total_hands": 80000,
+  "model_selection": "Final defender fixed before evaluation.",
+  "matches": [
+    {
+      "agent_a": "included-policy",
+      "agent_b": "initial-ppo",
+      "num_pairs": 5000,
+      "num_hands": 10000,
+      "bb_per_100": -39.125,
+      "ci95_bb_per_100": [
+        -75.67700648997054,
+        -2.5729935100294625
+      ],
+      "ci_method": "Student t interval over independent duplicate-deal pair means",
+      "complete": true
+    },
+    {
+      "agent_a": "included-policy",
+      "agent_b": "training-exploiter-1",
+      "num_pairs": 5000,
+      "num_hands": 10000,
+      "bb_per_100": 237.915,
+      "ci95_bb_per_100": [
+        171.71087808594538,
+        304.11912191405463
+      ],
+      "ci_method": "Student t interval over independent duplicate-deal pair means",
+      "complete": true
+    },
+    {
+      "agent_a": "included-policy",
+      "agent_b": "training-exploiter-2",
+      "num_pairs": 5000,
+      "num_hands": 10000,
+      "bb_per_100": 530.755,
+      "ci95_bb_per_100": [
+        448.1311346015287,
+        613.3788653984714
+      ],
+      "ci_method": "Student t interval over independent duplicate-deal pair means",
+      "complete": true
+    },
+    {
+      "agent_a": "included-policy",
+      "agent_b": "training-exploiter-3",
+      "num_pairs": 5000,
+      "num_hands": 10000,
+      "bb_per_100": 131.365,
+      "ci95_bb_per_100": [
+        96.97105350014857,
+        165.75894649985145
+      ],
+      "ci_method": "Student t interval over independent duplicate-deal pair means",
+      "complete": true
+    },
+    {
+      "agent_a": "fresh-final-attacker",
+      "agent_b": "initial-ppo",
+      "num_pairs": 5000,
+      "num_hands": 10000,
+      "bb_per_100": -100.71,
+      "ci95_bb_per_100": [
+        -182.387890440106,
+        -19.032109559893996
+      ],
+      "ci_method": "Student t interval over independent duplicate-deal pair means",
+      "complete": true
+    },
+    {
+      "agent_a": "fresh-final-attacker",
+      "agent_b": "included-policy",
+      "num_pairs": 5000,
+      "num_hands": 10000,
+      "bb_per_100": 448.89,
+      "ci95_bb_per_100": [
+        373.97385991221535,
+        523.8061400877847
+      ],
+      "ci_method": "Student t interval over independent duplicate-deal pair means",
+      "complete": true
+    },
+    {
+      "agent_a": "fresh-initial-attacker",
+      "agent_b": "initial-ppo",
+      "num_pairs": 5000,
+      "num_hands": 10000,
+      "bb_per_100": 270.225,
+      "ci95_bb_per_100": [
+        196.6486609166858,
+        343.80133908331425
+      ],
+      "ci_method": "Student t interval over independent duplicate-deal pair means",
+      "complete": true
+    },
+    {
+      "agent_a": "fresh-initial-attacker",
+      "agent_b": "included-policy",
+      "num_pairs": 5000,
+      "num_hands": 10000,
+      "bb_per_100": -139.085,
+      "ci95_bb_per_100": [
+        -204.4563176979321,
+        -73.71368230206791
+      ],
+      "ci_method": "Student t interval over independent duplicate-deal pair means",
+      "complete": true
+    }
+  ],
+  "limitations": [
+    "Each interval covers one matchup, not variation between training seeds.",
+    "The bot trained against the three training exploiters.",
+    "Fresh attackers were excluded from training.",
+    "No self-play-only comparison with the same training budget."
+  ],
+  "checkpoint": {
+    "path": "artifacts/deployment/holdem-ppo.pt",
+    "sha256": "ec4c709535e6df0aa6c3e5f475aa1c9fdcd0dba10c9c84985639b09b17d9ef99",
+    "evaluated_checkpoint_sha256": "9e696f13ade580b968fa6b69ede298884565adab3292b8e90eb5dc3d9297935f",
+    "weights_identical_to_evaluated_checkpoint": true
+  }
+}

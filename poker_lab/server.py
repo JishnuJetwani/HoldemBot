@@ -19,7 +19,7 @@ from .game import Action, GameSpec, HoldemState
 ROOT = Path(__file__).resolve().parents[1]
 class SessionRequest(BaseModel):
     model_config = ConfigDict(extra="forbid")
-    checkpoint_id: str = "diagnostic:random"
+    checkpoint_id: str = "deployment/holdem-ppo"
     human_seat: int = Field(default=1, ge=0, le=1)
 
 
@@ -81,7 +81,7 @@ def create_app(db_path=None, artifacts_dir=None):
         return {key: value[key] for key in fields if key in value}
 
     def recommendation(entries):
-        chosen = next((item for item in entries if item["id"] == "diagnostic:random"), None)
+        chosen = next((item for item in entries if item["id"] == "deployment/holdem-ppo"), None)
         return {**public_checkpoint(chosen), "label": "Holdem PPO"} if chosen else None
 
     def resolve_checkpoint(checkpoint_id):
